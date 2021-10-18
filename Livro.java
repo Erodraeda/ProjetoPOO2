@@ -9,6 +9,17 @@ public class Livro {
     private int paginas;
     private int vendidas;
 
+    /**
+     * Construtor da classe Livro
+     * 
+     * @param id
+     * @param nome
+     * @param genero
+     * @param id_autor
+     * @param paginas
+     * @param vendidas
+     * @throws IOException
+     */
     public Livro(int id, String nome, String genero, int id_autor, int paginas, int vendidas) throws IOException {
 
         setNome(nome);

@@ -5,6 +5,11 @@ import java.util.Scanner;
 
 public class App {
 
+    /**
+     * Mostra um menu com todas as opções
+     * 
+     * @return retorna opção escolhida
+     */
     private static String menu() {
 
         Scanner inp = new Scanner(System.in);
@@ -80,6 +85,12 @@ public class App {
 
     }
 
+    /**
+     * Inicia o procedimento de cadastro de um autor
+     * 
+     * @return objeto do autor
+     * @throws IOException
+     */
     private static Autor cadastrarAutores() throws IOException {
 
         Scanner inp = new Scanner(System.in);
@@ -104,6 +115,12 @@ public class App {
 
     }
 
+    /**
+     * Inicia o procedimento de cadastro de um livro
+     * 
+     * @return objeto do livro
+     * @throws IOException
+     */
     private static Livro cadastrarLivros() throws IOException {
 
         Scanner inp = new Scanner(System.in);
@@ -132,6 +149,11 @@ public class App {
         return livro;
     }
 
+    /**
+     * Lista os autores cadastrados
+     * 
+     * @throws IOException
+     */
     private static void listarAutores() throws IOException {
         List<String> lista = new ArrayList<String>();
 
@@ -140,6 +162,11 @@ public class App {
         System.out.println(lista);
     }
 
+    /**
+     * Lista os livros cadastrados
+     * 
+     * @throws IOException
+     */
     private static void listarLivros() throws IOException {
         List<String> lista = new ArrayList<String>();
 
@@ -148,6 +175,11 @@ public class App {
         System.out.println(lista);
     }
 
+    /**
+     * Get de um autor específico
+     * 
+     * @throws IOException
+     */
     private static void getAutor() throws IOException {
 
         Scanner inp = new Scanner(System.in);
@@ -164,6 +196,11 @@ public class App {
 
     }
 
+    /**
+     * Get de um livro específico
+     * 
+     * @throws IOException
+     */
     private static void getLivro() throws IOException {
 
         Scanner inp = new Scanner(System.in);
@@ -180,6 +217,12 @@ public class App {
 
     }
 
+    /**
+     * Atualização de um autor específico
+     * 
+     * @throws NumberFormatException
+     * @throws IOException
+     */
     private static void updateAutor() throws NumberFormatException, IOException {
 
         Scanner inp = new Scanner(System.in);
@@ -209,6 +252,12 @@ public class App {
 
     }
 
+    /**
+     * Atualização de um livro específico
+     * 
+     * @throws NumberFormatException
+     * @throws IOException
+     */
     private static void updateLivro() throws NumberFormatException, IOException {
 
         Scanner inp = new Scanner(System.in);
@@ -242,6 +291,12 @@ public class App {
 
     }
 
+    /**
+     * Delete de um autor específico
+     * 
+     * @throws NumberFormatException
+     * @throws IOException
+     */
     private static void deleteAutor() throws NumberFormatException, IOException {
 
         Scanner inp = new Scanner(System.in);
@@ -254,6 +309,12 @@ public class App {
 
     }
 
+    /**
+     * Delete de um livro específico
+     * 
+     * @throws NumberFormatException
+     * @throws IOException
+     */
     private static void deleteLivro() throws NumberFormatException, IOException {
 
         Scanner inp = new Scanner(System.in);
