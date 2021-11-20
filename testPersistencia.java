@@ -3,7 +3,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-public class testApp {
+public class testPersistencia {
 
     private static Path authorDir = Paths.get("files", "Authors.csv");
 

@@ -17,7 +17,7 @@ public class App {
         System.out.println(" -----> Menu <-----");
 
         String[] options = { "Sair", "Listar autores", "Cadastrar autores", "Get autor", "Atualizar autor",
-                "Deletar autor", "Rodar Testes" };
+                "Deletar autor", "Teste modelo", "Teste persistência" };
 
         for (int i = 0; i < options.length; i++) {
             System.out.println("(" + i + ")" + options[i]);
@@ -62,8 +62,11 @@ public class App {
             case "5 - Deletar autor":
                 deleteAutor();
                 break;
-            case "6 - Rodar Testes":
-                iniciarTestes();
+            case "6 - Teste modelo":
+                iniciarTestesModelo();
+                break;
+            case "6 - Teste persistência":
+                iniciarTestesPersistência();
                 break;
             case "0 - Sair":
                 System.exit(0);
@@ -183,9 +186,15 @@ public class App {
 
     }
 
-    private static void iniciarTestes() throws IOException {
+    private static void iniciarTestesModelo() throws IOException {
 
-        testApp.testes();
+        testModelo.testes();
+
+    }
+
+    private static void iniciarTestesPersistência() throws IOException {
+
+        testPersistencia.testes();
 
     }
 
