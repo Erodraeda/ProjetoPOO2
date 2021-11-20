@@ -17,7 +17,7 @@ public class App {
         System.out.println(" -----> Menu <-----");
 
         String[] options = { "Sair", "Listar autores", "Cadastrar autores", "Get autor", "Atualizar autor",
-                "Deletar autor" };
+                "Deletar autor", "Rodar Testes" };
 
         for (int i = 0; i < options.length; i++) {
             System.out.println("(" + i + ")" + options[i]);
@@ -61,6 +61,9 @@ public class App {
                 break;
             case "5 - Deletar autor":
                 deleteAutor();
+                break;
+            case "6 - Rodar Testes":
+                iniciarTestes();
                 break;
             case "0 - Sair":
                 System.exit(0);
@@ -180,6 +183,12 @@ public class App {
 
     }
 
+    private static void iniciarTestes() throws IOException {
+
+        testApp.testes();
+
+    }
+
     private static int getLastAutor() throws NumberFormatException, IOException {
 
         List<String> lista = new ArrayList<String>();
@@ -188,15 +197,25 @@ public class App {
 
         lista = arquivosAutor.listar();
 
-        String lastAuthor = lista.get(lista.size() - 1);
+        if (!lista.isEmpty()) {
 
-        lastId = lastAuthor.charAt(1);
+            String lastAuthor = lista.get(lista.size() - 1);
 
-        System.out.println("Last Id: " + lastId);
+            lastId = lastAuthor.charAt(1);
 
-        int id = Character.getNumericValue(lastId);
+            System.out.println("Last Id: " + lastId);
 
-        return id;
+            int id = Character.getNumericValue(lastId);
+
+            return id;
+
+        } else {
+
+            int id = 0;
+
+            return id;
+
+        }
 
     }
 
