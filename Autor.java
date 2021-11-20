@@ -3,8 +3,6 @@ import java.io.IOException;
 public class Autor {
 
     private int id;
-    private int vendidos = 0;
-    private int publicados = 0;
     private String idade;
     private String nome;
 
@@ -14,17 +12,13 @@ public class Autor {
      * @param nome
      * @param idade
      * @param id
-     * @param vendidos
-     * @param publicados
      * @throws IOException
      */
-    public Autor(String nome, String idade, int id, int vendidos, int publicados) throws IOException {
+    public Autor(String nome, String idade, int id) throws IOException {
 
         setNome(nome);
         setIdade(idade);
         setId(id);
-        setVendidos(vendidos);
-        setPublicados(publicados);
 
     }
 
@@ -35,24 +29,6 @@ public class Autor {
      */
     public int getId() {
         return this.id;
-    }
-
-    /**
-     * Get do numero de copias vendidas do autor
-     * 
-     * @return numero de copias vendidas
-     */
-    public int getVendidos() {
-        return this.vendidos;
-    }
-
-    /**
-     * Get do numero de copias publicadas do autor
-     * 
-     * @return numero de copias publicadas
-     */
-    public int getPublicados() {
-        return this.publicados;
     }
 
     /**
@@ -71,28 +47,6 @@ public class Autor {
      */
     public String getNome() {
         return this.nome;
-    }
-
-    /**
-     * Set do numero de copias vendidas
-     * 
-     * @param vendidos
-     * @return numero copias vendidas
-     */
-    public int setVendidos(int vendidos) {
-        this.vendidos = vendidos;
-        return this.vendidos;
-    }
-
-    /**
-     * Set do numero de copias publicadas
-     * 
-     * @param publicados
-     * @return numero copias publicadas
-     */
-    public int setPublicados(int publicados) {
-        this.publicados = publicados;
-        return this.publicados;
     }
 
     /**

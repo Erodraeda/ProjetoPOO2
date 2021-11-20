@@ -9,33 +9,29 @@ import java.util.List;
 public class arquivosAutor {
 
     private int id;
-    private int vendidos;
-    private int publicados;
     private String idade;
     private String nome;
 
     private static Path authorDir = Paths.get("files", "Authors.csv");
 
-    public arquivosAutor(String nome, String idade, int id, int publicados, int vendidos) throws IOException {
+    public arquivosAutor(String nome, String idade, int id) throws IOException {
 
-        setNome(nome);
-        setIdade(idade);
-        setId(id);
-        setVendidos(vendidos);
-        setPublicados(publicados);
+        this.nome = nome;
+        this.idade = idade;
+        this.id = id;
 
         newAuthor();
 
-        fillAuthorFile(nome, idade, id, publicados, vendidos);
+        fillAuthorFile(nome, idade, id);
 
     }
 
     @Override
     public String toString() {
-        return this.id + ";" + this.nome + ";" + this.idade + ";" + this.publicados + ";" + this.vendidos;
+        return this.id + ";" + this.nome + ";" + this.idade + ";";
     }
 
-    public void fillAuthorFile(String nome, String idade, int id, int publicados, int vendidos) throws IOException {
+    public void fillAuthorFile(String nome, String idade, int id) throws IOException {
         Files.writeString(authorDir, this.toString() + "\n", StandardOpenOption.APPEND);
     }
 
@@ -45,21 +41,18 @@ public class arquivosAutor {
 
         List<String> lista = new ArrayList<String>();
 
-        String[] campos = { "", "", "", "", "" };
+        String[] campos = { "", "", "" };
 
         for (String linha : linhas) {
             campos = linha.split(";");
 
             int id = Integer.parseInt(campos[0]);
-            int vendidos = Integer.parseInt(campos[3]);
-            int publicados = Integer.parseInt(campos[4]);
 
-            Autor a = new Autor(campos[1], campos[2], id, vendidos, publicados);
+            Autor a = new Autor(campos[1], campos[2], id);
 
-            lista.add("\n" + a.getId() + ";" + a.getNome() + ";" + a.getIdade() + ";" + a.getPublicados() + ";"
-                    + a.getVendidos());
+            lista.add("\n" + a.getId() + ";" + a.getNome() + ";" + a.getIdade() + ";");
 
-            // (String nome, String idade, int id, int vendidos, int publicados
+            // (String nome, String idade, int id
         }
 
         return lista;
@@ -80,7 +73,7 @@ public class arquivosAutor {
 
         List<String> lista = new ArrayList<String>();
 
-        String[] campos = { "", "", "", "", "" };
+        String[] campos = { "", "", "" };
 
         for (String linha : linhas) {
             campos = linha.split(";");
@@ -89,30 +82,25 @@ public class arquivosAutor {
 
             if (id == id_p) {
 
-                int vendidos = Integer.parseInt(campos[3]);
-                int publicados = Integer.parseInt(campos[4]);
+                Autor a = new Autor(campos[1], campos[2], id);
 
-                Autor a = new Autor(campos[1], campos[2], id, vendidos, publicados);
-
-                lista.add(a.getId() + ";" + a.getNome() + ";" + a.getIdade() + ";" + a.getPublicados() + ";"
-                        + a.getVendidos());
+                lista.add(a.getId() + ";" + a.getNome() + ";" + a.getIdade() + ";");
 
             }
 
-            // (String nome, String idade, int id, int vendidos, int publicados
+            // (String nome, String idade, int id
         }
 
         return lista;
 
     }
 
-    public static void updateAuthor(int id_p, String nome, String idade, int vendidos, int publicados)
-            throws IOException {
+    public static void updateAuthor(int id_p, String nome, String idade) throws IOException {
 
         List<String> obj = getAutor(id_p);
         List<String> tudo = listar();
 
-        String[] campos = { "", "", "", "", "" };
+        String[] campos = { "", "", "" };
 
         Files.delete(authorDir);
 
@@ -124,12 +112,10 @@ public class arquivosAutor {
                 campos = tudo.get(i).split(";");
 
                 int id = Integer.parseInt(campos[0]);
-                int nvendidos = Integer.parseInt(campos[3]);
-                int npublicados = Integer.parseInt(campos[4]);
 
-                Autor a = new Autor(campos[1], campos[2], id, nvendidos, npublicados);
+                Autor a = new Autor(campos[1], campos[2], id);
 
-                new arquivosAutor(a.getNome(), a.getIdade(), a.getId(), a.getPublicados(), a.getVendidos());
+                new arquivosAutor(a.getNome(), a.getIdade(), a.getId());
 
             }
             if (tudo.get(i).equals(obj.get(0))) {
@@ -140,9 +126,9 @@ public class arquivosAutor {
 
                 int id = Integer.parseInt(campos[0]);
 
-                Autor a = new Autor(nome, idade, id, vendidos, publicados);
+                Autor a = new Autor(nome, idade, id);
 
-                new arquivosAutor(a.getNome(), a.getIdade(), a.getId(), a.getPublicados(), a.getVendidos());
+                new arquivosAutor(a.getNome(), a.getIdade(), a.getId());
 
             }
         }
@@ -154,7 +140,7 @@ public class arquivosAutor {
         List<String> obj = getAutor(id_p);
         List<String> tudo = listar();
 
-        String[] campos = { "", "", "", "", "" };
+        String[] campos = { "", "", "" };
 
         Files.delete(authorDir);
 
@@ -166,41 +152,14 @@ public class arquivosAutor {
                 campos = tudo.get(i).split(";");
 
                 int id = Integer.parseInt(campos[0]);
-                int vendidos = Integer.parseInt(campos[3]);
-                int publicados = Integer.parseInt(campos[4]);
 
-                Autor a = new Autor(campos[1], campos[2], id, vendidos, publicados);
+                Autor a = new Autor(campos[1], campos[2], id);
 
-                new arquivosAutor(a.getNome(), a.getIdade(), a.getId(), a.getPublicados(), a.getVendidos());
+                new arquivosAutor(a.getNome(), a.getIdade(), a.getId());
 
             }
         }
 
-    }
-
-    public int setVendidos(int vendidos) {
-        this.vendidos = vendidos;
-        return this.vendidos;
-    }
-
-    public int setPublicados(int publicados) {
-        this.publicados = publicados;
-        return this.publicados;
-    }
-
-    private int setId(int id) {
-        this.id = id;
-        return this.id;
-    }
-
-    private String setIdade(String idade) {
-        this.idade = idade;
-        return this.idade;
-    }
-
-    private String setNome(String nome) {
-        this.nome = nome;
-        return this.nome;
     }
 
 }

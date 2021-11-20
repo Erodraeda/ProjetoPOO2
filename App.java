@@ -16,8 +16,8 @@ public class App {
 
         System.out.println(" -----> Menu <-----");
 
-        String[] options = { "Sair", "Listar livros", "Listar autores", "Cadastrar livros", "Cadastrar autores",
-                "Get livro", "Get autor", "Atualizar livro", "Atualizar autor", "Deletar livro", "Deletar autor" };
+        String[] options = { "Sair", "Listar autores", "Cadastrar autores", "Get autor", "Atualizar autor",
+                "Deletar autor" };
 
         for (int i = 0; i < options.length; i++) {
             System.out.println("(" + i + ")" + options[i]);
@@ -47,39 +47,24 @@ public class App {
             System.out.println("Opção selecionada: " + option);
 
             switch (option) {
-                case "1 - Listar livros":
-                    listarLivros();
-                    break;
-                case "2 - Listar autores":
-                    listarAutores();
-                    break;
-                case "3 - Cadastrar livros":
-                    cadastrarLivros();
-                    break;
-                case "4 - Cadastrar autores":
-                    cadastrarAutores();
-                    break;
-                case "5 - Get livro":
-                    getLivro();
-                    break;
-                case "6 - Get autor":
-                    getAutor();
-                    break;
-                case "7 - Atualizar livro":
-                    updateLivro();
-                    break;
-                case "8 - Atualizar autor":
-                    updateAutor();
-                    break;
-                case "9 - Deletar livro":
-                    deleteLivro();
-                    break;
-                case "10 - Deletar autor":
-                    deleteAutor();
-                    break;
-                case "0 - Sair":
-                    System.exit(0);
-                    break;
+            case "1 - Listar autores":
+                listarAutores();
+                break;
+            case "2 - Cadastrar autores":
+                cadastrarAutores();
+                break;
+            case "3 - Get autor":
+                getAutor();
+                break;
+            case "4 - Atualizar autor":
+                updateAutor();
+                break;
+            case "5 - Deletar autor":
+                deleteAutor();
+                break;
+            case "0 - Sair":
+                System.exit(0);
+                break;
             }
         }
 
@@ -95,8 +80,8 @@ public class App {
 
         Scanner inp = new Scanner(System.in);
 
-        String[] dados = { "ID", "Nome", "Idade" };
-        String[] resp = { "", "", "" };
+        String[] dados = { "Nome", "Idade" };
+        String[] resp = { "", "" };
 
         for (int i = 0; i < dados.length; i++) {
             System.out.println("Digite o " + dados[i] + " do autor: ");
@@ -105,48 +90,16 @@ public class App {
             resp[i] = res;
         }
 
-        int id = Integer.parseInt(resp[0]);
+        int id = getLastAutor() + 1;
 
-        Autor autor = new Autor(resp[1], resp[2], id, 0, 0);
+        System.out.println("id: " + id);
 
-        new arquivosAutor(autor.getNome(), autor.getIdade(), autor.getId(), autor.getPublicados(), autor.getVendidos());
+        Autor autor = new Autor(resp[0], resp[1], id);
+
+        new arquivosAutor(autor.getNome(), autor.getIdade(), autor.getId());
 
         return autor;
 
-    }
-
-    /**
-     * Inicia o procedimento de cadastro de um livro
-     * 
-     * @return objeto do livro
-     * @throws IOException
-     */
-    private static Livro cadastrarLivros() throws IOException {
-
-        Scanner inp = new Scanner(System.in);
-
-        String[] dados = { "ID", "Nome", "Genero", "ID do Autor", "Numero de Paginas" };
-        String[] resp = { "", "", "", "", "" };
-
-        for (int i = 0; i < dados.length; i++) {
-            System.out.println("Digite o " + dados[i] + " do livro: ");
-            String res = inp.nextLine();
-
-            resp[i] = res;
-        }
-
-        int id = Integer.parseInt(resp[0]);
-
-        int id_autor = Integer.parseInt(resp[3]);
-
-        int num_pags = Integer.parseInt(resp[4]);
-
-        Livro livro = new Livro(id, resp[1], resp[2], id_autor, num_pags, 0);
-
-        new arquivosLivro(livro.getId(), livro.getNome(), livro.getGenero(), livro.getIdAutor(), livro.getPaginas(),
-                livro.getVendidas());
-
-        return livro;
     }
 
     /**
@@ -158,19 +111,6 @@ public class App {
         List<String> lista = new ArrayList<String>();
 
         lista = arquivosAutor.listar();
-
-        System.out.println(lista);
-    }
-
-    /**
-     * Lista os livros cadastrados
-     * 
-     * @throws IOException
-     */
-    private static void listarLivros() throws IOException {
-        List<String> lista = new ArrayList<String>();
-
-        lista = arquivosLivro.listar();
 
         System.out.println(lista);
     }
@@ -191,27 +131,6 @@ public class App {
         List<String> lista = new ArrayList<String>();
 
         lista = arquivosAutor.getAutor(Integer.parseInt(id));
-
-        System.out.println(lista);
-
-    }
-
-    /**
-     * Get de um livro específico
-     * 
-     * @throws IOException
-     */
-    private static void getLivro() throws IOException {
-
-        Scanner inp = new Scanner(System.in);
-
-        System.out.println("Digite o ID do livro: ");
-
-        String id = inp.nextLine();
-
-        List<String> lista = new ArrayList<String>();
-
-        lista = arquivosLivro.getLivro(Integer.parseInt(id));
 
         System.out.println(lista);
 
@@ -239,55 +158,7 @@ public class App {
 
         String nome = inp.nextLine();
 
-        System.out.println("Digite o novo numero de livros publicados do autor: ");
-
-        String publicados = inp.nextLine();
-
-        System.out.println("Digite o novo numero de livros vendidos do autor: ");
-
-        String vendidos = inp.nextLine();
-
-        arquivosAutor.updateAuthor(Integer.parseInt(id_p), nome, idade, Integer.parseInt(vendidos),
-                Integer.parseInt(publicados));
-
-    }
-
-    /**
-     * Atualização de um livro específico
-     * 
-     * @throws NumberFormatException
-     * @throws IOException
-     */
-    private static void updateLivro() throws NumberFormatException, IOException {
-
-        Scanner inp = new Scanner(System.in);
-
-        System.out.println("Digite o ID do livro que desejas editar: ");
-
-        String id_p = inp.nextLine();
-
-        System.out.println("Digite o novo nome do livro: ");
-
-        String nome = inp.nextLine();
-
-        System.out.println("Digiteo novo genero do livro: ");
-
-        String genero = inp.nextLine();
-
-        System.out.println("Digite o ID do novo autor do autor: ");
-
-        String id_autor = inp.nextLine();
-
-        System.out.println("Digite o novo numero de paginas: ");
-
-        String paginas = inp.nextLine();
-
-        System.out.println("Digite o novo numero de copias vendidas: ");
-
-        String vendidas = inp.nextLine();
-
-        arquivosLivro.updateBook(Integer.parseInt(id_p), nome, genero, Integer.parseInt(id_autor),
-                Integer.parseInt(paginas), Integer.parseInt(vendidas));
+        arquivosAutor.updateAuthor(Integer.parseInt(id_p), nome, idade);
 
     }
 
@@ -309,21 +180,23 @@ public class App {
 
     }
 
-    /**
-     * Delete de um livro específico
-     * 
-     * @throws NumberFormatException
-     * @throws IOException
-     */
-    private static void deleteLivro() throws NumberFormatException, IOException {
+    private static int getLastAutor() throws NumberFormatException, IOException {
 
-        Scanner inp = new Scanner(System.in);
+        List<String> lista = new ArrayList<String>();
 
-        System.out.println("Digite o ID do livro: ");
+        char lastId = 0;
 
-        String id = inp.nextLine();
+        lista = arquivosAutor.listar();
 
-        arquivosLivro.deleteBook(Integer.parseInt(id));
+        String lastAuthor = lista.get(lista.size() - 1);
+
+        lastId = lastAuthor.charAt(1);
+
+        System.out.println("Last Id: " + lastId);
+
+        int id = Character.getNumericValue(lastId);
+
+        return id;
 
     }
 
