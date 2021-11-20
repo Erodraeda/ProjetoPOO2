@@ -67,7 +67,7 @@ public class App {
             case "6 - Teste modelo":
                 iniciarTestesModelo();
                 break;
-            case "6 - Teste persistência":
+            case "7 - Teste persistência":
                 iniciarTestesPersistência();
                 break;
             case "0 - Sair":
