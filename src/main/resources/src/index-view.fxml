@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="index_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controllers.IndexController">
+    <children>
+        <TableView fx:id="tabAutores" prefHeight="374.0" prefWidth="600.0">
+            <columns>
+                <TableColumn fx:id="id_autor" prefWidth="96.0" text="ID" />
+                <TableColumn fx:id="nome_autor" prefWidth="360.0" text="Nome" />
+                <TableColumn fx:id="idade_autor" prefWidth="143.0" text="Idade" />
+            </columns>
+        </TableView>
+        <Button fx:id="update_autor" layoutX="421.0" layoutY="374.0" mnemonicParsing="false" onAction="#handleUpdate" prefHeight="25.0" prefWidth="76.0" text="Update" />
+        <Button fx:id="delete_autor" layoutX="510.0" layoutY="374.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="25.0" prefWidth="76.0" text="Delete" />
+        <Button fx:id="create_autor" layoutX="332.0" layoutY="374.0" mnemonicParsing="false" onAction="#handleCreate" prefHeight="25.0" prefWidth="76.0" text="Create" />
+    </children>
+</AnchorPane>
