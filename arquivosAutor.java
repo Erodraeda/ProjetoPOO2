@@ -6,6 +6,8 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
+import src.models.Autor;
+
 public class arquivosAutor {
 
     private int id;
