@@ -11,7 +11,7 @@ import java.util.List;
 public class Autor_DAO {
 
     public static boolean insert(Autor autor) throws SQLException {
-//
+
         String query = "INSERT INTO autor(nome, idade) VALUES (?,?)";
 
         try (Connection con = ConnectionFactory.getConnection()){
@@ -19,9 +19,7 @@ public class Autor_DAO {
             pstm.setString(1, autor.getNome());
             pstm.setInt(2, autor.getIdade());
 
-            var rs = pstm.executeUpdate();
-//            rs.next();
-//            rs.close();
+            pstm.executeUpdate();
             pstm.close();
             return true;
         }catch(SQLException e) {
