@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class CadastroLivroController implements Initializable {
@@ -49,12 +48,6 @@ public class CadastroLivroController implements Initializable {
     private void loadTable() throws SQLException, IOException {
         AutorDAO cDao = new AutorDAO();
         // TODO: show name instead of object
-//        List<Autor> autores;
-//        ArrayList<String> nome_autores = new ArrayList<>();
-//        autores = cDao.list();
-//        for (var autor : autores) {
-//            nome_autores.add(autor.getNome());
-//        }
         autores = FXCollections.observableArrayList(cDao.list());
         input_autores.setItems(this.autores);
     }

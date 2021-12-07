@@ -1,8 +1,6 @@
 package src.models;
 
 import java.io.IOException;
-import java.sql.Array;
-import java.util.ArrayList;
 
 public class Livro {
 

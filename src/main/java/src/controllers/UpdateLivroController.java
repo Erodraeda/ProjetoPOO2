@@ -1,20 +1,13 @@
 package src.controllers;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import src.DAO.LivroDAO;
 import src.Main;
 import src.models.Livro;
-
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.ResourceBundle;
 
 public class UpdateLivroController {
 
@@ -23,8 +16,6 @@ public class UpdateLivroController {
 
     @FXML
     private AnchorPane index_pane;
-
-//    Livro livro = ((Livro)index_pane.getUserData());
 
     @FXML
     private TextField input_nome;

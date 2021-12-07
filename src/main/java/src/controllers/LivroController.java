@@ -11,7 +11,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import src.DAO.LivroDAO;
 import src.Main;
-import src.models.Autor;
 import src.models.Livro;
 
 import java.net.URL;

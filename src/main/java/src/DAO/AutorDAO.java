@@ -1,7 +1,6 @@
 package src.DAO;
 
 import src.models.Autor;
-import src.models.Livro;
 
 import java.io.IOException;
 import java.sql.Connection;

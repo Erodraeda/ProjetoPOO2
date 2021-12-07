@@ -1,8 +1,5 @@
 package src.tests;
 
-import src.DAO.AutorDAO;
-import src.models.Autor;
-
 import java.io.IOException;
 import java.sql.SQLException;
 
