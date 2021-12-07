@@ -17,5 +17,6 @@
         <Button fx:id="update_autor" layoutX="421.0" layoutY="374.0" mnemonicParsing="false" onAction="#handleUpdate" prefHeight="25.0" prefWidth="76.0" text="Update" />
         <Button fx:id="delete_autor" layoutX="510.0" layoutY="374.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="25.0" prefWidth="76.0" text="Delete" />
         <Button fx:id="create_autor" layoutX="332.0" layoutY="374.0" mnemonicParsing="false" onAction="#handleCreate" prefHeight="25.0" prefWidth="76.0" text="Create" />
+        <Button fx:id="voltar_inicio" layoutY="374.0" mnemonicParsing="false" onAction="#handleVoltar" prefHeight="25.0" prefWidth="76.0" text="Voltar" />
     </children>
 </AnchorPane>

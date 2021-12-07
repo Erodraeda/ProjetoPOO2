@@ -1,6 +1,7 @@
 package src.DAO;
 
 import src.models.Autor;
+import src.models.Livro;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -8,9 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Autor_DAO {
+public class AutorDAO implements DAO<Autor> {
 
-    public static boolean insert(Autor autor) throws SQLException {
+    public boolean insert(Autor autor) {
 
         String query = "INSERT INTO autor(nome, idade) VALUES (?,?)";
 
@@ -27,8 +28,7 @@ public class Autor_DAO {
         }
 
     }
-
-    public static Autor get(int id) throws SQLException {
+    public Autor get(int id) {
 
         String sql = "SELECT * FROM autor WHERE id = ?";
 
@@ -50,7 +50,7 @@ public class Autor_DAO {
         }
     }
 
-    public static List<Autor> list() throws SQLException {
+    public List<Autor> list() {
 
         String sql = "SELECT * FROM autor";
 
@@ -77,7 +77,7 @@ public class Autor_DAO {
 
     }
 
-    public static boolean update(Autor autor) {
+    public boolean update(Autor autor) {
         String sql = "UPDATE autor SET nome = ?, idade = ? WHERE id = ?";
         try (Connection con = ConnectionFactory.getConnection()){
             var pstm = con.prepareStatement(sql);
@@ -92,7 +92,7 @@ public class Autor_DAO {
         }
     }
 
-    public static boolean delete(int id) {
+    public boolean delete(int id) {
         String sql = "DELETE FROM autor WHERE id = ?";
         try (Connection con = ConnectionFactory.getConnection()){
             var pstm = con.prepareStatement(sql);

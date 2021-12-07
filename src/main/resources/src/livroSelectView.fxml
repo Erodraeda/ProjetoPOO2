@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="index_pane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="src.controllers.LivroController">
+   <children>
+      <TableView fx:id="tabLivros" prefHeight="374.0" prefWidth="600.0">
+         <columns>
+            <TableColumn fx:id="id_livro" prefWidth="96.0" text="ID" />
+            <TableColumn fx:id="nome_livro" prefWidth="364.0" text="Nome" />
+            <TableColumn fx:id="paginas_livro" prefWidth="139.0" text="Paginas" />
+         </columns>
+      </TableView>
+      <Button fx:id="voltar_inicio" layoutY="374.0" mnemonicParsing="false" onAction="#handleVoltar" prefHeight="25.0" prefWidth="76.0" text="Voltar" />
+      <Button fx:id="add_autor" layoutX="216.0" layoutY="374.0" mnemonicParsing="false" onAction="#handleAddAutoria" prefHeight="25.0" prefWidth="102.0" text="Inserir Autorias" />
+   </children>
+</AnchorPane>

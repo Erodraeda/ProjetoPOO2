@@ -15,7 +15,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         stage = primaryStage;
-        loadScene("index-view");
+        loadScene("indexView");
         primaryStage.show();
 
     }

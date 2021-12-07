@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import src.DAO.Autor_DAO;
+import src.DAO.AutorDAO;
 import src.Main;
 import src.models.Autor;
 
@@ -40,14 +40,35 @@ public class UpdateController {
 
         autor.setNome(input_nome.getText());
 
-        Autor_DAO.update(autor);
+        AutorDAO AutorDAO = new AutorDAO();
 
-        Main.loadScene("index-view");
+        AutorDAO.update(autor);
+
+        Main.loadScene("autoresView");
     }
 
     @FXML
     void returnPage(ActionEvent event) {
-        Main.loadScene("index-view");
+        Main.loadScene("autoresView");
     }
 
+//    private void loadTexts() throws SQLException {
+//        var autor = ((Autor)index_pane.getUserData());
+//        System.out.println("Autor: " + autor);
+//        input_nome.setText(autor.getNome());
+//        input_idade.setText(String.valueOf(autor.getIdade()));
+//    }
+//
+//    @Override
+//    public void initialize(URL url, ResourceBundle resourceBundle) {
+//
+//        try {
+//            loadTexts();
+//            input_nome.setText(("nome"));
+//            input_idade.setText(("idade"));
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
 }

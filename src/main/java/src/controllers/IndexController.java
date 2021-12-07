@@ -5,11 +5,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import src.DAO.Autor_DAO;
+import src.DAO.AutorDAO;
 import src.Main;
 import src.models.Autor;
 
@@ -23,12 +21,6 @@ public class IndexController implements Initializable {
     public TableView<Autor> tabAutores;
 
     public ObservableList<Autor> autores;
-
-    private void loadTable() throws SQLException {
-        Autor_DAO cDao = new Autor_DAO();
-        autores = FXCollections.observableArrayList(cDao.list());
-        tabAutores.setItems(this.autores);
-    }
 
     @FXML
     public TableColumn<?, ?> id_autor;
@@ -49,25 +41,54 @@ public class IndexController implements Initializable {
     public Button update_autor;
 
     @FXML
+    private Button voltar_inicio;
+
+    @FXML
     public void handleCreate(ActionEvent event) {
-        Main.loadScene("create-view");
+        Main.loadScene("createView");
     }
 
     @FXML
     public void handleDelete(ActionEvent event) {
         var selected = tabAutores.getSelectionModel().getSelectedItem();
-        Autor_DAO.delete(selected.getId());
-        Main.loadScene("index-view");
+        if (selected != null) {
+            var alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setHeaderText("You are about to delete an author!");
+            alert.setContentText("Are you sure you want to proceed?");
+            alert.setTitle("Warning!");
+            var ret = alert.showAndWait();
+            if (ret.isPresent() && ret.get() == ButtonType.OK) {
+                AutorDAO AutorDAO = new AutorDAO();
+                AutorDAO.delete(selected.getId());
+                Main.loadScene("autoresView");
+            }
+        } else {
+            var alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("You have nothing selected.");
+            alert.setContentText("Select an author you want to delete.");
+            alert.setTitle("Oops!");
+            alert.showAndWait();
+        }
     }
 
     @FXML
     public void handleUpdate(ActionEvent event) {
         var selected = tabAutores.getSelectionModel().getSelectedItem();
-        Main.loadScene("update-view", selected);
+        if (selected == null) {
+            var alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText("You have nothing selected.");
+            alert.setContentText("Select an author you want to update.");
+            alert.setTitle("Oops!");
+            alert.showAndWait();
+        } else {
+            Main.loadScene("updateAutorView", selected);
+        }
     }
 
-    private void loadPage() {
-
+    private void loadTable() throws SQLException {
+        AutorDAO cDao = new AutorDAO();
+        autores = FXCollections.observableArrayList(cDao.list());
+        tabAutores.setItems(this.autores);
     }
 
     @Override
@@ -82,5 +103,10 @@ public class IndexController implements Initializable {
             e.printStackTrace();
         }
 
+    }
+
+    @FXML
+    void handleVoltar(ActionEvent event) {
+        Main.loadScene("indexView");
     }
 }

@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import src.DAO.Autor_DAO;
+import src.DAO.AutorDAO;
 import src.Main;
 import src.models.Autor;
 
@@ -29,14 +29,16 @@ public class CadastroController {
     void finishCreate(ActionEvent event) throws SQLException, IOException {
         Autor autor = new Autor(input_nome.getText(), Integer.parseInt(input_idade.getText()));
 
-        Autor_DAO.insert(autor);
+        AutorDAO AutorDAO = new AutorDAO();
 
-        Main.loadScene("index-view");
+        AutorDAO.insert(autor);
+
+        Main.loadScene("autoresView");
     }
 
     @FXML
     void returnPage(ActionEvent event) {
-        Main.loadScene("index-view");
+        Main.loadScene("autoresView");
     }
 
 }
