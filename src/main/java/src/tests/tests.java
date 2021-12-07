@@ -8,36 +8,28 @@ import java.sql.SQLException;
 
 public class tests {
 
-    private static int testValues = 0;
-
     public static void main(String[] args) throws IOException, SQLException {
 
-        Autor autor = new Autor("Lucas", 21, 1);
-        Autor autor2 = new Autor("Walter", 21, 2);
+        TestAutor testAutor = new TestAutor();
+        TestLivro testLivro = new TestLivro();
 
-        AutorDAO AutorDAO = new AutorDAO();
+        if (testAutor.testInsertAutor() && testAutor.testGetAutor() && testAutor.testListAutor() && testAutor.testUpdateAutor() && testAutor.testDeleteAutor()) {
+            System.out.println("Testes autor todos ok");
+        } else {
+            System.out.println("Algum teste de autor não está funcional.");
+        }
 
-        var insert = AutorDAO.insert(autor);
+        if (testLivro.testInsertLivro() && testLivro.testGetLivro() && testLivro.testListLivro() && testLivro.testUpdateLivro() && testLivro.testDeleteLivro()) {
+            System.out.println("Testes livro todos ok");
+        } else {
+            System.out.println("Algum teste de livro não está funcional.");
+        }
 
-        if (insert == true) testValues++;
-
-        System.out.println("Get: " + AutorDAO.get(1).getId() + ", " + AutorDAO.get(1).getNome() + ", " + AutorDAO.get(1).getIdade());
-
-        var list = AutorDAO.list();
-
-        if (!list.isEmpty()) testValues++;
-
-        Autor autorUpdate = new Autor("Lucas Walter", 21, 1);
-
-        var update = AutorDAO.update(autorUpdate);
-
-        if (update == true) testValues++;
-
-        var delete = AutorDAO.delete(2);
-
-        if (delete == true) testValues++;
-
-        System.out.println("Valor total nos testes: " + testValues + "/4");
+        if (testLivro.testInsertAutoriaAutomatico() && testLivro.testInsertAutoriaManual() && testLivro.testDeleteAutoria()) {
+            System.out.println("Testes autoria todos ok");
+        } else {
+            System.out.println("Algum teste de autoria não está funcional.");
+        }
 
     }
 

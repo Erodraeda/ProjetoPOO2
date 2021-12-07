@@ -16,13 +16,15 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
-public class UpdateLivroController implements Initializable {
+public class UpdateLivroController {
 
     @FXML
     private Button atualizar_button;
 
     @FXML
     private AnchorPane index_pane;
+
+//    Livro livro = ((Livro)index_pane.getUserData());
 
     @FXML
     private TextField input_nome;
@@ -33,9 +35,31 @@ public class UpdateLivroController implements Initializable {
     @FXML
     private Button return_button;
 
+    // TODO: fix initializable
+//    private void loadTable() throws SQLException {
+//        Livro livro = ((Livro)index_pane.getUserData());
+//        System.out.println("livro: " + livro);
+//        input_nome.setText(livro.getNome());
+//        input_paginas.setText(String.valueOf(livro.getPaginas()));
+//    }
+//
+//    @Override
+//    public void initialize(URL url, ResourceBundle resourceBundle) {
+//
+//        try {
+//            loadTable();
+//            input_nome.setText(String.valueOf(new PropertyValueFactory("nomeLivro")));
+//            input_paginas.setText(String.valueOf(new PropertyValueFactory("paginasLivro")));
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//    }
+
     @FXML
     void finishUpdate(ActionEvent event) {
         Livro livro = ((Livro)index_pane.getUserData());
+        System.out.println("Livro: " + livro);
 
         livro.setPaginas(Integer.parseInt(input_paginas.getText()));
 
@@ -51,28 +75,6 @@ public class UpdateLivroController implements Initializable {
     @FXML
     void returnPage(ActionEvent event) {
         Main.loadScene("livrosView");
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-        try {
-            loadTable();
-            input_nome.setText(String.valueOf(new PropertyValueFactory("nomeLivro")));
-            input_paginas.setText(String.valueOf(new PropertyValueFactory("paginasLivro")));
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void loadTable() throws SQLException {
-        Livro livro = ((Livro)index_pane.getUserData());
-        System.out.println("livro: " + livro);
-        var nomeLivro = livro.getNome();
-        var paginasLivro = livro.getPaginas();
-        input_nome.setText(nomeLivro);
-        input_paginas.setText(String.valueOf(paginasLivro));
     }
 
 }

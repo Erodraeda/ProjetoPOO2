@@ -3,10 +3,12 @@ package src.DAO;
 import src.models.Autor;
 import src.models.Livro;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class LivroDAO implements DAO<Livro> {
 
@@ -22,8 +24,9 @@ public class LivroDAO implements DAO<Livro> {
             pstm.executeUpdate();
             pstm.close();
             return true;
-        }catch(SQLException e) {
-            throw new RuntimeException(e);
+        } catch(SQLException e) {
+            System.out.println("Erro executando insert Livro: " + e.getMessage());
+            return false;
         }
 
     }
@@ -49,10 +52,30 @@ public class LivroDAO implements DAO<Livro> {
             }
 
             pstm.close();
-
             return true;
         }catch(SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println("Erro executando insert Livro: " + e.getMessage());
+            return false;
+        }
+
+    }
+
+    public boolean insert(int id_autor, int id_livro) {
+
+        String query = "INSERT INTO autoria (id_autor, id_livro) VALUES (?,?)";
+
+        try (Connection con = ConnectionFactory.getConnection()){
+            var pstm = con.prepareStatement(query);
+
+            pstm.setInt(1, id_autor);
+            pstm.setInt(2, id_livro);
+
+            pstm.executeUpdate();
+            pstm.close();
+            return true;
+        }catch(SQLException e) {
+            System.out.println("Erro executando insert Autoria: " + e.getMessage());
+            return false;
         }
 
     }
@@ -81,7 +104,7 @@ public class LivroDAO implements DAO<Livro> {
 
     public List<Livro> list() {
 
-        String sql = "SELECT * FROM livro";
+        String sql = "select livro.id, livro.nome, livro.paginas, autor.nome, autor.idade, autor.id from livro join autoria on livro.id = autoria.id_livro join autor on autor.id = autoria.id_autor";
 
         List<Livro> livros = new ArrayList<>();
 
@@ -92,15 +115,18 @@ public class LivroDAO implements DAO<Livro> {
             var rs = pstm.executeQuery();
             while (rs.next()){
                 Livro livro = new Livro();
-                livro.setId(rs.getInt("id"));
-                livro.setNome(rs.getString("nome"));
-                livro.setPaginas(rs.getInt("paginas"));
+
+                ArrayList<Autor> autores = new ArrayList<>();
+                livro.setId(rs.getInt(1));
+                livro.setNome(rs.getString(2));
+                livro.setPaginas(rs.getInt(3));
+                livro.setAutor(new Autor(rs.getString(4), rs.getInt(5), rs.getInt(6)));
                 livros.add(livro);
             }
             rs.close();
             pstm.close();
             return livros;
-        }catch(SQLException e){
+        }catch(SQLException | IOException e){
             throw new RuntimeException(e);
         }
 
@@ -126,6 +152,20 @@ public class LivroDAO implements DAO<Livro> {
         try (Connection con = ConnectionFactory.getConnection()){
             var pstm = con.prepareStatement(sql);
             pstm.setInt(1, id);
+            pstm.execute();
+            pstm.close();
+            return true;
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean deleteAutoria(int id_livro, int id_autor) {
+        String sql = "DELETE FROM autoria WHERE id_livro = ? AND id_autor = ?";
+        try (Connection con = ConnectionFactory.getConnection()){
+            var pstm = con.prepareStatement(sql);
+            pstm.setInt(1, id_livro);
+            pstm.setInt(2, id_autor);
             pstm.execute();
             pstm.close();
             return true;

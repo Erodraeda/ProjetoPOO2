@@ -9,22 +9,14 @@ public class Livro {
     private int id;
     private String nome;
     private int paginas;
-    private ArrayList<Autor> autores = new ArrayList<Autor>();
+    private Autor autor;
 
-    /**
-     * Construtor da classe Livro
-     *
-     * @param id
-     * @param nome
-     * @param paginas
-     * @throws IOException
-     */
-    public Livro(int id, String nome, int paginas, ArrayList<Autor> autores) {
+    public Livro(int id, String nome, int paginas, Autor autor) {
 
         setId(id);
         setNome(nome);
         setPaginas(paginas);
-        setAutores(autores);
+        setAutor(autor);
 
     }
 
@@ -39,7 +31,6 @@ public class Livro {
 
         setNome(nome);
         setPaginas(paginas);
-        setAutores(autores);
 
     }
 
@@ -59,8 +50,8 @@ public class Livro {
         return this.paginas;
     }
 
-    public ArrayList<Autor> getAutores() {
-        return this.autores;
+    public Autor getAutor() {
+        return this.autor;
     }
 
     public int setPaginas(int paginas) {
@@ -78,11 +69,9 @@ public class Livro {
         return this.id;
     }
 
-    public ArrayList<Autor> setAutores(ArrayList<Autor> autores) {
-        for (var autor:autores) {
-            this.autores.add(autor);
-        }
+    public Autor setAutor(Autor autor) {
+            this.autor = autor;
 
-        return this.autores;
+        return this.autor;
     }
 }

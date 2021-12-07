@@ -52,6 +52,7 @@ public class UpdateController {
         Main.loadScene("autoresView");
     }
 
+    // TODO: fix initializable
 //    private void loadTexts() throws SQLException {
 //        var autor = ((Autor)index_pane.getUserData());
 //        System.out.println("Autor: " + autor);

@@ -19,5 +19,7 @@
       <Button fx:id="delete_livro" layoutX="511.0" layoutY="374.0" mnemonicParsing="false" onAction="#handleDelete" prefHeight="25.0" prefWidth="76.0" text="Delete" />
       <Button fx:id="create_livro" layoutX="333.0" layoutY="374.0" mnemonicParsing="false" onAction="#handleCreate" prefHeight="25.0" prefWidth="76.0" text="Create" />
       <Button fx:id="voltar_inicio" layoutY="374.0" mnemonicParsing="false" onAction="#handleVoltar" prefHeight="25.0" prefWidth="76.0" text="Voltar" />
+      <Button fx:id="autoria_delete" layoutX="112.0" layoutY="374.0" mnemonicParsing="false" onAction="#handleDeleteAutoria" prefHeight="25.0" prefWidth="90.0" text="Deletar Autor" />
+      <Button fx:id="autoria_inserir" layoutX="210.0" layoutY="374.0" mnemonicParsing="false" onAction="#handleInsertAutoria" prefHeight="25.0" prefWidth="90.0" text="Inserir Autor" />
    </children>
 </AnchorPane>

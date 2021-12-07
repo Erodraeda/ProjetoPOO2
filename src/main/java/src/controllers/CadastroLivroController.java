@@ -48,6 +48,7 @@ public class CadastroLivroController implements Initializable {
 
     private void loadTable() throws SQLException, IOException {
         AutorDAO cDao = new AutorDAO();
+        // TODO: show name instead of object
 //        List<Autor> autores;
 //        ArrayList<String> nome_autores = new ArrayList<>();
 //        autores = cDao.list();
