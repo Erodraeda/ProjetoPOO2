@@ -39,7 +39,7 @@ public class TestLivro {
     }
 
     public boolean testInsertAutoriaManual() {
-        var insert = livroDAO.insert(1, 2);
+        var insert = livroDAO.insertAutoria(1, 2);
 
         if (insert == true) {
             System.out.println("testInsertAutoriaManual ok");

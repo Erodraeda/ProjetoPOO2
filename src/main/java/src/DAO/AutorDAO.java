@@ -53,7 +53,7 @@ public class AutorDAO implements DAO<Autor> {
 
         String sql = "SELECT * FROM autor";
 
-        List<Autor> users = new ArrayList<>();
+        List<Autor> autores = new ArrayList<>();
 
         try (Connection con = ConnectionFactory.getConnection()){
             var pstm = con.prepareStatement(sql);
@@ -61,15 +61,41 @@ public class AutorDAO implements DAO<Autor> {
 //            pstm.setInt(2, offset);
             var rs = pstm.executeQuery();
             while (rs.next()){
-                Autor u = new Autor();
-                u.setId(rs.getInt("id"));
-                u.setNome(rs.getString("nome"));
-                u.setIdade(rs.getInt("idade"));
-                users.add(u);
+                Autor autor = new Autor();
+                autor.setId(rs.getInt("id"));
+                autor.setNome(rs.getString("nome"));
+                autor.setIdade(rs.getInt("idade"));
+                autores.add(autor);
             }
             rs.close();
             pstm.close();
-            return users;
+            return autores;
+        }catch(SQLException | IOException e){
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public List<Autor> listAutores(int id_livro) {
+
+        String sql = "SELECT autor.id, autor.nome FROM livro JOIN autoria ON livro.id = autoria.id_livro JOIN autor ON autor.id = autoria.id_autor WHERE autoria.id_livro = ?";
+
+        List<Autor> autores = new ArrayList<>();
+
+        try (Connection con = ConnectionFactory.getConnection()){
+            var pstm = con.prepareStatement(sql);
+            pstm.setInt(1, id_livro);
+            var rs = pstm.executeQuery();
+            while (rs.next()){
+                Autor autor = new Autor();
+
+                autor.setId(rs.getInt(1));
+                autor.setNome(rs.getString(2));
+                autores.add(autor);
+            }
+            rs.close();
+            pstm.close();
+            return autores;
         }catch(SQLException | IOException e){
             throw new RuntimeException(e);
         }

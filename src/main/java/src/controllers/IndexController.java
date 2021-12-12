@@ -86,8 +86,8 @@ public class IndexController implements Initializable {
     }
 
     private void loadTable() throws SQLException {
-        AutorDAO cDao = new AutorDAO();
-        autores = FXCollections.observableArrayList(cDao.list());
+        AutorDAO aDao = new AutorDAO();
+        autores = FXCollections.observableArrayList(aDao.list());
         tabAutores.setItems(this.autores);
     }
 

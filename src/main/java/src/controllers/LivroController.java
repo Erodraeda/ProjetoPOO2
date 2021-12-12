@@ -11,10 +11,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import src.DAO.LivroDAO;
 import src.Main;
+import src.models.Autor;
 import src.models.Livro;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class LivroController implements Initializable {
@@ -43,6 +45,9 @@ public class LivroController implements Initializable {
     private TableColumn<Livro, String> autores_livro;
 
     @FXML
+    private TableColumn<?, ?> nome_autor;
+
+    @FXML
     private TableColumn<?, ?> nome_livro;
 
     @FXML
@@ -56,9 +61,6 @@ public class LivroController implements Initializable {
 
     @FXML
     private Button voltar_inicio;
-
-    @FXML
-    private Button add_autor;
 
     @FXML
     void handleCreate(ActionEvent event) {
@@ -108,30 +110,7 @@ public class LivroController implements Initializable {
     }
 
     @FXML
-    void handleDeleteAutoria(ActionEvent event) {
-        var selected = tabLivros.getSelectionModel().getSelectedItem();
-        if (selected != null) {
-            var alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setHeaderText("You are about to delete a book's author!");
-            alert.setContentText("Are you sure you want to proceed?");
-            alert.setTitle("Warning!");
-            var ret = alert.showAndWait();
-            if (ret.isPresent() && ret.get() == ButtonType.OK) {
-                LivroDAO livroDAO = new LivroDAO();
-                livroDAO.deleteAutoria(selected.getId(), selected.getAutor().getId());
-                Main.loadScene("livrosView");
-            }
-        } else {
-            var alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText("You have nothing selected.");
-            alert.setContentText("Select a book's author you want to delete.");
-            alert.setTitle("Oops!");
-            alert.showAndWait();
-        }
-    }
-
-    @FXML
-    void handleInsertAutoria(ActionEvent event) {
+    void handleAutoria(ActionEvent event) {
         var livro = tabLivros.getSelectionModel().getSelectedItem();
         if (livro == null) {
             var alert = new Alert(Alert.AlertType.INFORMATION);
@@ -140,7 +119,7 @@ public class LivroController implements Initializable {
             alert.setTitle("Oops!");
             alert.showAndWait();
         } else {
-            Main.loadScene("setAutoresView", livro);
+            Main.loadSceneObj("autoriaView", livro.getId());
         }
     }
 
@@ -152,7 +131,6 @@ public class LivroController implements Initializable {
             id_livro.setCellValueFactory(new PropertyValueFactory<>("id"));
             nome_livro.setCellValueFactory(new PropertyValueFactory<>("nome"));
             paginas_livro.setCellValueFactory(new PropertyValueFactory<>("paginas"));
-            autores_livro.setCellValueFactory(autor -> new SimpleStringProperty(autor.getValue().getAutor().getNome()));
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -160,8 +138,8 @@ public class LivroController implements Initializable {
     }
 
     private void loadTable() throws SQLException {
-        LivroDAO cDao = new LivroDAO();
-        livros = FXCollections.observableArrayList(cDao.list());
+        LivroDAO lDao = new LivroDAO();
+        livros = FXCollections.observableArrayList(lDao.list());
         tabLivros.setItems(this.livros);
     }
 }

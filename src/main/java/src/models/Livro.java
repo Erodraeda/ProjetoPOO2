@@ -1,34 +1,47 @@
 package src.models;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Livro {
 
     private int id;
     private String nome;
     private int paginas;
-    private Autor autor;
+    private ArrayList<Autor> autor;
 
-    public Livro(int id, String nome, int paginas, Autor autor) {
+    public Livro(int id, String nome, int paginas, ArrayList<Autor> autores) {
 
-        setId(id);
-        setNome(nome);
-        setPaginas(paginas);
-        setAutor(autor);
+        this.id = id;
+        this.nome = nome;
+        this.paginas = paginas;
+        this.autor = autores;
 
     }
 
-    /**
-     * Construtor da classe Livro
-     *
-     * @param nome
-     * @param paginas
-     * @throws IOException
-     */
+    public Livro(int id, String nome, int paginas, Autor autor) {
+
+        this.id = id;
+        this.nome = nome;
+        this.paginas = paginas;
+        this.autor.add(autor);
+
+    }
+
     public Livro(String nome, int paginas) {
 
-        setNome(nome);
-        setPaginas(paginas);
+        this.nome = nome;
+        this.paginas = paginas;
+
+    }
+
+    public Livro(String nome, int paginas, Autor autorLivro) {
+
+        ArrayList<Autor> autor = new ArrayList<>();
+
+        this.nome = nome;
+        this.paginas = paginas;
+        this.autor.add(autorLivro);
 
     }
 
@@ -48,7 +61,7 @@ public class Livro {
         return this.paginas;
     }
 
-    public Autor getAutor() {
+    public ArrayList<Autor> getAutor() {
         return this.autor;
     }
 
@@ -67,9 +80,14 @@ public class Livro {
         return this.id;
     }
 
-    public Autor setAutor(Autor autor) {
-            this.autor = autor;
+    public ArrayList<Autor> setAutor(Autor autorLivro) {
+        ArrayList<Autor> autor = new ArrayList<>();
+        this.autor.add(autorLivro);
+        return this.autor;
+    }
 
+    public ArrayList<Autor> setAutores(ArrayList<Autor> autores) {
+        this.autor = autores;
         return this.autor;
     }
 }

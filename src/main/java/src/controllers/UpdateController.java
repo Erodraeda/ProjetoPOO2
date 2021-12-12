@@ -1,7 +1,9 @@
 package src.controllers;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -10,8 +12,11 @@ import src.Main;
 import src.models.Autor;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class UpdateController {
+public class UpdateController implements Initializable {
 
     @FXML
     private AnchorPane index_pane;
@@ -52,24 +57,24 @@ public class UpdateController {
         Main.loadScene("autoresView");
     }
 
-    // TODO: fix initializable
-//    private void loadTexts() throws SQLException {
-//        var autor = ((Autor)index_pane.getUserData());
-//        System.out.println("Autor: " + autor);
-//        input_nome.setText(autor.getNome());
-//        input_idade.setText(String.valueOf(autor.getIdade()));
-//    }
-//
-//    @Override
-//    public void initialize(URL url, ResourceBundle resourceBundle) {
-//
-//        try {
-//            loadTexts();
-//            input_nome.setText(("nome"));
-//            input_idade.setText(("idade"));
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
+    private void loadTexts() throws SQLException {
+        var autor = ((Autor)index_pane.getUserData());
+        input_nome.setText(autor.getNome());
+        input_idade.setText(String.valueOf(autor.getIdade()));
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        Platform.runLater(()-> {
+            try {
+                loadTexts();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        });
+        input_nome.setText(("nome"));
+        input_idade.setText(("idade"));
+
+    }
 }

@@ -59,7 +59,7 @@ public class LivroDAO implements DAO<Livro> {
 
     }
 
-    public boolean insert(int id_autor, int id_livro) {
+    public boolean insertAutoria(int id_autor, int id_livro) {
 
         String query = "INSERT INTO autoria (id_autor, id_livro) VALUES (?,?)";
 
@@ -103,14 +103,12 @@ public class LivroDAO implements DAO<Livro> {
 
     public List<Livro> list() {
 
-        String sql = "select livro.id, livro.nome, livro.paginas, autor.nome, autor.idade, autor.id from livro join autoria on livro.id = autoria.id_livro join autor on autor.id = autoria.id_autor";
+        String sql = "SELECT id, nome, paginas FROM livro";
 
         List<Livro> livros = new ArrayList<>();
 
         try (Connection con = ConnectionFactory.getConnection()){
             var pstm = con.prepareStatement(sql);
-//            pstm.setInt(1, limit);
-//            pstm.setInt(2, offset);
             var rs = pstm.executeQuery();
             while (rs.next()){
                 Livro livro = new Livro();
@@ -119,17 +117,18 @@ public class LivroDAO implements DAO<Livro> {
                 livro.setId(rs.getInt(1));
                 livro.setNome(rs.getString(2));
                 livro.setPaginas(rs.getInt(3));
-                livro.setAutor(new Autor(rs.getString(4), rs.getInt(5), rs.getInt(6)));
                 livros.add(livro);
             }
             rs.close();
             pstm.close();
             return livros;
-        }catch(SQLException | IOException e){
+        }catch(SQLException e){
             throw new RuntimeException(e);
         }
 
     }
+
+
 
     public boolean update(Livro livro) {
         String sql = "UPDATE livro SET nome = ?, paginas = ? WHERE id = ?";

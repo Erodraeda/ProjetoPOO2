@@ -38,18 +38,25 @@ public class CadastroLivroController implements Initializable {
     private TextField input_paginas;
 
     @FXML
-    private ComboBox<Autor> input_autores;
+    private ComboBox<String> input_autores;
 
     @FXML
     private Button return_button;
 
     private ObservableList<Autor> autores;
 
+    private ObservableList<String> autoresDisponiveis;
+
     private void loadTable() throws SQLException, IOException {
-        AutorDAO cDao = new AutorDAO();
+        AutorDAO aDao = new AutorDAO();
         // TODO: show name instead of object
-        autores = FXCollections.observableArrayList(cDao.list());
-        input_autores.setItems(this.autores);
+        autores = FXCollections.observableArrayList(aDao.list());
+        ArrayList<String> nomes = new ArrayList<>();
+        for (var i = 0; i < autores.size(); i++) {
+            nomes.add(this.autores.get(i).getId() + ", " + this.autores.get(i).getNome());
+        }
+        autoresDisponiveis = FXCollections.observableArrayList(nomes);
+        input_autores.setItems(this.autoresDisponiveis);
     }
 
     @Override
@@ -57,7 +64,7 @@ public class CadastroLivroController implements Initializable {
 
         try {
             loadTable();
-            input_autores.setItems(autores);
+            input_autores.setItems(autoresDisponiveis);
         } catch (SQLException | IOException e) {
             e.printStackTrace();
         }
@@ -67,9 +74,15 @@ public class CadastroLivroController implements Initializable {
     @FXML
     void finishCreate(ActionEvent event) throws SQLException, IOException {
 
-        Autor autor = new Autor(input_autores.getValue().getNome(), input_autores.getValue().getIdade(), input_autores.getValue().getId());
+        String autorValue = input_autores.getValue();
 
-        System.out.println("input: " + input_autores.getValue());
+        String[] idAutores = autorValue.split(", ");
+
+        AutorDAO autorDAO = new AutorDAO();
+
+        Autor author = autorDAO.get(Integer.parseInt(idAutores[0]));
+
+        Autor autor = new Autor(author.getNome(), author.getIdade(), Integer.parseInt(idAutores[0]));
 
         Livro livro = new Livro(input_nome.getText(), Integer.parseInt(input_paginas.getText()));
 
