@@ -38,8 +38,6 @@ public class Livro {
 
     public Livro(String nome, int paginas, Autor autorLivro) {
 
-        ArrayList<Autor> autor = new ArrayList<>();
-
         this.nome = nome;
         this.paginas = paginas;
         this.autor.add(autorLivro);
