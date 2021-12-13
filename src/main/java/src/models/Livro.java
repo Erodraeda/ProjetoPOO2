@@ -2,20 +2,21 @@ package src.models;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Livro {
 
     private int id;
     private String nome;
     private int paginas;
-    private ArrayList<Autor> autor;
+    private final ArrayList<Autor> autor = new ArrayList<>();
 
     public Livro(int id, String nome, int paginas, ArrayList<Autor> autores) {
 
         this.id = id;
         this.nome = nome;
         this.paginas = paginas;
-        this.autor = autores;
+        this.autor.addAll(autores);
 
     }
 
@@ -87,7 +88,7 @@ public class Livro {
     }
 
     public ArrayList<Autor> setAutores(ArrayList<Autor> autores) {
-        this.autor = autores;
+        this.autor.addAll(autores);
         return this.autor;
     }
 }
